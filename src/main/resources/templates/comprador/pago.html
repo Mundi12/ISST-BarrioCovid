@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+
+ <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+   
+
+<div th:include="comprador/header.html::header"></div>
+
+
+
+<div class="credit-card-container">
+    <div class="row">
+        
+        <h2 class="aux3">
+            Detalles de pago 
+        </h2>
+
+        <div class="aux"></div>
+        
+        <div class="credit-card-div">
+        <img th:src="@{/img/tarjetas.png}" width="80" height="50" class="img-rounded" />
+        </div>
+        
+    </div>
+    <form class="credit-card-div" th:action="@{/comprador/finalPedido}" method="post"  >
+    <div class="panel panel-default" >
+    <div class="panel-heading">
+       
+        
+            
+         
+        <div class="row ">
+            <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Introduzca el número de tarjeta" />
+            </div>
+        </div>
+
+        <div class="row ">
+
+            <div class="col-md-12 col-sm-10 col-xs-3">
+                <span class="help-block text-muted small-font" > Mes de caducidad</span>
+                    <input type="text" class="form-control" placeholder="MM" />
+            </div>
+
+            <div class="col-md-12 col-sm-10 col-xs-3">
+                <span class="help-block text-muted small-font" >  Año de caducidad</span>
+                    <input type="text" class="form-control" placeholder="YY" />
+            </div>
+
+            <div class="col-md-12 col-sm-10 col-xs-3">
+                <span class="help-block text-muted small-font" >  CCV</span>
+                    <input type="text" class="form-control" placeholder="CCV" />
+            </div>
+
+        </div>
+
+        <div class="row ">
+
+            <div class="col-md-12 pad-adjust">
+                <input type="text" class="form-control" placeholder="Titular de la tarjeta" />
+            </div>
+        </div>
+
+        
+        <div class="row">
+
+            <div class="col-md-12 pad-adjust">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked class="text-muted"> Guardar datos para el siguiente pedido <a href="#"> ?</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                <input  type="submit"  class="btn btn-danger" value="CANCELAR" />
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                <input  type="submit"  class="btn btn-warning btn-block" value="PAGAR AHORA" />
+            </div>
+        </div>
+          
+    </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

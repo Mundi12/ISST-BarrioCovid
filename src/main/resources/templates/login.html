@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Barrio Covid</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body> 
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Barrio Covid</span></div>
+        <form th:action="@{/comprador}" method="get">
+          
+          <div class="row">
+           
+            <input type="text" name="username" placeholder="Nombre de usuario">
+          </div>
+          <div class="row">
+           
+            <input type="text" name="contraseña" placeholder="Contraseña">
+          </div>
+          
+          <div class="row button">
+            <input type="submit" value="Inicio sesión">   
+                
+          </div>
+
+          
+        </form>
+
+        <form th:action="@{/misproductos}"  method="get">
+          <div class="row button">
+          <input type="submit" value="Regístrate">
+        </div>
+        </form>
+            
+         
+            
+         
+
+          
+          
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

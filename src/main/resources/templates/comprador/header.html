@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+
+  
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+   
+   <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top ">
+   
+      <a class="navbar-brand" th:href="@{/comprador}">Barrio Covid</a>
+
+      
+
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <span class="navbar-text"> 
+        <li class="nav-item dropdown"><a
+          class="nav-link dropdown-toggle" href="#"
+          id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"> Cuenta </a>
+          <div class="dropdown-menu"
+            aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" th:href="@{/perfil/prueba}">Mi perfil</a>
+            <a class="dropdown-item" th:href="@{/cerrarsesion}">Cerrar sesión</a> 
+          </div></li>
+        </span>
+          </ul>
+        </div>
+
+        
+  
+   
+    
+    </nav>
+
+
+</div>
+
+    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  </body>
+
+  </html>

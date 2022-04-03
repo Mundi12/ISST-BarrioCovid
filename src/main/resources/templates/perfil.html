@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+
+
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<div th:include="vendedor/header.html::header"></div>
+
+    
+    <div class="container">
+
+
+
+     
+
+      <h2>Mi Perfil</h2>
+      <form class="form-horizontal" th:action="@{/perfil}"  method="post"  enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${perfil.id}">    
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="nombre" name="nombre"  required autocomplete="off" th:value="${perfil.nombre}">
+            <div id="prueba"></div>  
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="email">Email:</label>
+          <div class="col-sm-10">          
+            <textarea class="form-control" id="email" name="email"  required autocomplete="off" th:text="${perfil.email}"> </textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="direccion">Direccion:</label>
+          <div class="col-sm-10"> 
+            <textarea class="form-control" id="direccion" name="direccion"  required autocomplete="off" th:text="${perfil.direccion}"> </textarea>      
+            
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="telefono">Telefono:</label>
+          <div class="col-sm-10">          
+            <input type="text" class="form-control" step="any"  id="telefono" name="telefono"  th:value="${perfil.telefono}" >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div  th:if="${perfil.tipo == 'comprador'}">
+          <label class="control-label col-sm-2" for="telefono">Vulnerabilidad:</label>
+          <div class="col-sm-10">          
+            <input type="text" class="form-control" step="any"  id="telefono" name="telefono"  th:value="${perfil.esvulnerable}" >
+          </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label  class="control-label col-sm-2" for="tipo">Tipo:</label>
+          <div class="col-sm-10">  
+            <input readonly="true" type="text" class="form-control" id="tipo" name="tipo"   th:value="${perfil.tipo}">
+           
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-info"> Actualizar datos de perfil</button>
+          </div>             
+        </div>
+
+      </form>
+
+    </div>
+    
+
+ 
+
+
+ <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+ <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  </body>
+
+  </html>
