@@ -101,8 +101,6 @@ public class CompradorController {
         infoProducto.setTotal(producto.getPrecio()* cantidad);
         infoProducto.setProducto(producto);
 
-        
-
         boolean dentro= false;
 
         for(InfoProducto p: infoProductoRepository.findAll() ){
@@ -114,36 +112,26 @@ public class CompradorController {
         if(!dentro){
             infoProductoRepository.save(infoProducto);
         }
-
         else {
             Integer i = infoProductoRepository.findByProducto(producto).get().getId();
             infoProductoRepository.deleteById(i);
             infoProductoRepository.save(infoProducto);
         }
-
-        
-
-        
-
-        
-
         for(InfoProducto p: infoProductoRepository.findAll() ){
-            
             total = p.getTotal() + total;    
         }
         
-        
-        
-       
         pedido.setImporte(total);
         pedidoRepository.save(pedido);
+        Integer idVendedor = infoProducto.getProducto().getUsuario().getId();
+        return "redirect:/comprador/tienda/"+ idVendedor;
+    }
 
+    @GetMapping("/verCarrito") 
+    public String verCarrito(Model model){
         model.addAttribute("infos", infoProductoRepository.findAll());
-        logger.info("Vendedor: {}", infoProducto.getProducto().getUsuario().getId());
-
-        model.addAttribute("vendedor",infoProducto.getProducto().getUsuario().getId());
         model.addAttribute("pedido", pedido);
-        return "/comprador/carrito";
+        return "comprador/carrito";
     }
 
 

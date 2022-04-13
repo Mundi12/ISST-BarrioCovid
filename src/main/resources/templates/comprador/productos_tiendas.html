@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
@@ -26,8 +27,10 @@
  <div th:include="comprador/header.html::header"></div>
 
     <div class="container">
-     
+        <div class="row text-center">
         <h1 class="display-3">Lista de productos</h1>
+        <a class="btn btn-info" th:href="@{/verCarrito}" > Ver carrito</a>
+        </div>
         
    
 
