@@ -6,17 +6,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="pedidos")
-
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private double importe;
+    private Integer estado;
+
     @ManyToOne
-    private Usuario usuario;
-
-    
-
+    private Usuario usuario; //Comprador
     
     @OneToMany(mappedBy = "pedido")
     private List<InfoProducto> infosProducto;
@@ -24,15 +22,14 @@ public class Pedido {
     public Pedido() {
     }
     
-    public Pedido(Integer id, double importe) {
+    public Pedido(Integer id, double importe, Integer estado) {
         super();
         this.id = id;
         this.importe = importe;
+        this.estado = estado;
     }
 
-    
-
-    public Integer getId() {
+    public Integer getId(){
         return id;
     }
 
@@ -65,6 +62,13 @@ public class Pedido {
         this.infosProducto = infosProducto;
     }
 
+    public Integer getEstado() {
+            return estado;
+        }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
     
 
     

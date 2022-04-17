@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <link th:href="@{/css/estilos.css}" rel="stylesheet"> 
+</head>
+
+<body>
+
+    <div th:include="comprador/header.html::header"></div>
+    
+    <div class="row text-center">
+        <div class="card-body">
+            <div  th:if="${estado == 3}">
+            <p class="card-text">Su pedido está esperando a ser confirmado por el vendedor</p>
+            </div>
+            <div  th:if="${estado == 4}">
+            <p class="card-text" >Su pedido ha sido confirmado por el vendedor</p>
+
+            </div>
+            <div  th:if="${estado == 5}">
+            <p class="card-text">Un voluntario ha aceptado su pedido</p>
+        
+            </div>
+            <div  th:if="${estado == 6}">
+            <p class="card-text">El pedido se encuentra listo en tienda</p>
+            </div>
+            <div  th:if="${estado == 7}">
+            <p class="card-text">El pedido se ha recogido de la tienda</p>
+
+            </div>
+            <div  th:if="${estado == 8}">
+            <p class="card-text">Pedido entregado</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>
+

@@ -36,7 +36,7 @@
 
         
        
-        <form class="form-inline my-2 my-lg-0"  th:action="@{/comprador/buscartienda}" method="post">
+        <form class="form-inline my-2 my-lg-0"  th:action="@{/comprador/{idcomprador}/buscartienda (idcomprador=${idcomprador})}" method="post">
         
           <input class="form-control mr-sm-2" type="search"
         placeholder="Buscar" aria-label="Search" name="nombre"
@@ -54,7 +54,7 @@
             </div>
             <img class="card-img-top" th:src="@{/img/tienda.jpg}" width="700" height="325">
             <div class="card-footer">
-              <a href="productohome.html" class="btn btn-light" th:href="@{/comprador/tienda/{id} (id=${vendedor.id})}">Seleccionar tienda</a>
+              <a href="productohome.html" class="btn btn-light" th:href="@{/comprador/{idcomprador}/tienda/{id} (idcomprador=${idcomprador}, id=${vendedor.id})}">Seleccionar tienda</a>
             </div>
           </div>
         </div>

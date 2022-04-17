@@ -24,10 +24,12 @@ public class CompradorController {
     private final PedidoRepository pedidoRepository;
 
     private final Logger logger = LoggerFactory.getLogger(VendedorController.class);
-    Pedido pedido = new Pedido();
-
+    
 
     
+    Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
+    Pedido pedido = new Pedido(1,0,0);
+
     public CompradorController(ProductoRepository p, UsuarioRepository u, InfoProductoRepository i, PedidoRepository pe) {
 
         this.productoRepository = p;
@@ -44,7 +46,7 @@ public class CompradorController {
     }
 
     @GetMapping("/perfil/prueba") 
-    public String perfil( Model model){
+    public String perfil(Model model){
         model.addAttribute("perfil", usuarioRepository.findById(5).get());
         return "perfil";
     }
@@ -53,36 +55,40 @@ public class CompradorController {
     public String editarPerfil(Usuario usuario){  
         
         usuarioRepository.save(usuario);
-        return "redirect:/comprador";  
+       // logger.info("usuario{}",usuario);
+        return "redirect:/comprador/" + comprador.getId();  
     }
-
-
-
-
-    
-
-    @GetMapping("/comprador") 
-    public String homeComprador(Model model){
+    @GetMapping("/comprador/{idcomprador}") 
+    public String homeComprador(Model model, @PathVariable Integer idcomprador){
         model.addAttribute("vendedores", usuarioRepository.findByTipo("vendedor"));
+        model.addAttribute("idcomprador", comprador.getId());
         return "comprador/home";
     }
 
-    @PostMapping("/comprador/buscartienda")
-    public String buscarTienda(@RequestParam String nombre){
+    @PostMapping("/comprador/{idcomprador}/buscartienda")
+    public String buscarTienda(@RequestParam String nombre, @PathVariable Integer idcomprador){
         Optional <Usuario> usuario = usuarioRepository.findByNombre(nombre);
         Integer idTienda=0;
         try{
            idTienda= usuario.get().getId();
-           return "redirect:/comprador/tienda/" + idTienda;
+           return "redirect:/comprador/" + comprador.getId() + "/tienda/" + idTienda;
         }
         catch(Exception e) {}
-        return "redirect:/comprador";
+        return "redirect:/comprador/" + comprador.getId();
     }
     
-    @GetMapping("/comprador/tienda/{id}") 
-    public String tiendaSeleccionada(@PathVariable Integer id, Model model){
+    @GetMapping("/comprador/{idcomprador}/tienda/{id}") 
+    public String tiendaSeleccionada(@PathVariable Integer id, Model model, @PathVariable Integer idcomprador){
         Usuario usuario = usuarioRepository.findById(id).get();
+        Pedido patata = new Pedido(1,0,0);
+        logger.info("Pedido patata: {}", patata);
+        pedido.setUsuario(comprador);
+        logger.info("Pedido1: {}", pedido);
+        pedidoRepository.save(pedido);
+        logger.info("Pedido2: {}", pedido);
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
         model.addAttribute("productos", productoRepository.findByUsuario(usuario));
+        model.addAttribute("idcomprador", comprador.getId());
         return "comprador/productos_tiendas";
     }
 
@@ -111,26 +117,29 @@ public class CompradorController {
 
         if(!dentro){
             infoProductoRepository.save(infoProducto);
-        }
-        else {
+        } else {
             Integer i = infoProductoRepository.findByProducto(producto).get().getId();
             infoProductoRepository.deleteById(i);
             infoProductoRepository.save(infoProducto);
         }
+
         for(InfoProducto p: infoProductoRepository.findAll() ){
             total = p.getTotal() + total;    
         }
         
         pedido.setImporte(total);
         pedidoRepository.save(pedido);
+        logger.info("Pedido3: {}", pedido);
         Integer idVendedor = infoProducto.getProducto().getUsuario().getId();
-        return "redirect:/comprador/tienda/"+ idVendedor;
+        return "redirect:/comprador/" + comprador.getId() +"/tienda/"+ idVendedor;
     }
 
     @GetMapping("/verCarrito") 
     public String verCarrito(Model model){
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
         model.addAttribute("infos", infoProductoRepository.findAll());
         model.addAttribute("pedido", pedido);
+        model.addAttribute("idcomprador", comprador.getId());
         return "comprador/carrito";
     }
 
@@ -140,11 +149,9 @@ public class CompradorController {
     public String quitarDelCarrito(@PathVariable Integer id, Model model ){
         Producto producto = productoRepository.findById(id).get();
         
-        
-
         boolean dentro= false;
 
-        for(InfoProducto p: infoProductoRepository.findAll() ){
+        for(InfoProducto p: infoProductoRepository.findAll()){
             if(p.getProducto().getId() == id){
                 dentro=true;
             }
@@ -166,25 +173,27 @@ public class CompradorController {
        
         pedido.setImporte(total);
         pedidoRepository.save(pedido);
-
+        logger.info("Pedido4: {}", pedido);
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());  
         model.addAttribute("infos", infoProductoRepository.findAll());
         model.addAttribute("vendedor",producto.getUsuario().getId());
         model.addAttribute("pedido", pedido);
-
-
-        
+        model.addAttribute("idcomprador", comprador.getId());
         
         return "/comprador/carrito";
     }
 
 
 
-    @GetMapping("/comprador/pedido") 
+    @GetMapping("/comprador/{idcomprador}/pedido") 
     public String verPedido(Model model){
 
-        Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
         Usuario vendedor = new Usuario(2, "Supermercado BM","demo","supermarket.bm@gmail.com","C. de la Cruz, 23, 28012 Madrid","655432518","vendedor",false);
-
+        pedido.setEstado(1);
+        pedidoRepository.save(pedido);
+        logger.info("Pedido5: {}", pedido);
+        logger.info("Estado: {}", pedido.getEstado());
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
         model.addAttribute("infos", infoProductoRepository.findAll());
         model.addAttribute("pedido", pedido);
         model.addAttribute("comprador", comprador);
@@ -193,33 +202,45 @@ public class CompradorController {
         return "comprador/pedido";
     }
 
-    @GetMapping("/comprador/pedidoGuardado") 
-    public String guardarPedido(){
+    @GetMapping("/comprador/{idcomprador}/pedidoGuardado") 
+    public String guardarPedido(Model model){
 
         Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
         pedido.setUsuario(comprador);
-        pedidoRepository.save(pedido);
 
         for(InfoProducto info: infoProductoRepository.findAll()){
             info.setPedido(pedido);
             infoProductoRepository.save(info);
         }
-
-        infoProductoRepository.deleteAll();
-        pedido= new Pedido();
-        
-
-
+        pedido.setEstado(2);
+        pedidoRepository.save(pedido);
+        logger.info("Pedido6: {}", pedido);
+        logger.info("Estado: {}", pedido.getEstado());
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+        model.addAttribute("idcomprador", comprador.getId());
         return "comprador/pago";
     }
 
-    
-
-    @PostMapping("/comprador/finalPedido") 
-    public String pago(){
-        return "redirect:/comprador";
+    @GetMapping("/comprador/{idcomprador}/finalPedido/cancelar") 
+    public String pagocancelado(){
+        //pedidoRepository.deleteAll();
+        return "redirect:/comprador/" + comprador.getId();
     }
 
-
+    @GetMapping("/comprador/{idcomprador}/finalPedido/pagado") 
+    public String pagopagado(Model model){
+        pedido.setEstado(3);
+        pedidoRepository.save(pedido);
+        Integer estado = pedido.getEstado();
+        logger.info("Pedido7: {}", pedido);
+        logger.info("Estado: {}", pedido.getEstado());
+        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+        model.addAttribute("estado",estado);
+        model.addAttribute("idcomprador", comprador.getId());
+        return "comprador/seguimiento";
+    }
     
+
+
+
 }

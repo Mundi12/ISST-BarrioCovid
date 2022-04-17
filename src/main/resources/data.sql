@@ -6,4 +6,4 @@ INSERT INTO usuarios (id, nombre,contraseña,email,direccion,telefono,tipo,esvul
 INSERT INTO usuarios (id, nombre,contraseña,email,direccion,telefono,tipo,esvulnerable) VALUES (4, 'Farmacia Trébol','demo','trebol@gmail.com','C. de Preciados, 14, 28013 Madrid','655432518','vendedor',false);
 INSERT INTO usuarios (id, nombre,contraseña,email,direccion,telefono,tipo,esvulnerable) VALUES (5, 'Lucia Garcia','demo','lucia.garcia@gmail.com','Calle Alcalá,15, 3A','655432518','comprador',false);
 
-
+INSERT INTO productos (id,nombre,precio,cantidad,usuario_id) VALUES (1,'patata',2,3,2);

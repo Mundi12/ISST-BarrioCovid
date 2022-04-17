@@ -29,19 +29,13 @@
           <div class="row">
            <div class="col-lg-9">
              <div class="card-body">
-              <h5 class="card-title">
-                Datos Establecimiento
-              </h5>
-              <h6 th:text=" 'Tienda: ' + ${vendedor.nombre}">Nombre: </h6>
-              <h6 th:text=" 'Correo: ' + ${vendedor.email}">Correo: </h6>
-              <h6 th:text=" 'Direccion: ' + ${vendedor.direccion}">Dirección</h6>
-              <h2></h2>
-              <h5 class="card-title">
+
                 Datos Comprador
               </h5>
               <h6 th:text=" 'Nombre: ' + ${comprador.nombre}">Nombre: </h6>
               <h6 th:text=" 'Correo: ' + ${comprador.email}">Correo: </h6>
               <h6 th:text=" 'Direccion: ' + ${comprador.direccion}">Dirección</h6>
+
               <h2></h2>
               <h5 class="card-title">
                 Productos
@@ -74,8 +68,8 @@
               <h2></h2>
             </div>
             <div class="row">
-              <a th:href="@{/comprador/{idcomprador}/pedidoGuardado (idcomprador=${comprador.id})}" class="btn btn-info">Confirmar pedido</a>
-              
+              <a th:href="@{/misproductos/pedidos/borrado}" class="btn btn-info">Denegar pedido</a>
+              <a th:href="@{/misproductos/pedidos/confirmado}" class="btn btn-info">Confirmar pedido</a>
             </div>
 
            </div>

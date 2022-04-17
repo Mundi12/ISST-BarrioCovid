@@ -3,7 +3,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="infos")
-
 public class InfoProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 

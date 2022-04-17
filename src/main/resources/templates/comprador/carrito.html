@@ -10,24 +10,17 @@
 
   <title>Barrio Covid</title>
 
-
- 
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-  
   <link th:href="@{/css/estilos.css}" rel="stylesheet">
 
 </head>
 
 <body>
 
- 
-
  <div th:include="comprador/header.html::header"></div>
 
-    
     <div class="container">
-
 
       <div class="row">
         <h2 class="mt-4 mb-3">
@@ -39,15 +32,9 @@
         <img th:src="@{/img/cesta.png}" width="100" height="100" class="img-rounded" />
         </div>
 
-        
-        
     </div>
       
-
-      
-      
       <h2></h2>
-
 
       <div class="container">
       
@@ -76,9 +63,9 @@
           <div class="col-lg-3">
             <h7 th:text=" 'Importe del pedido: ' + ${pedido.importe} + '€'" > </h7>
             <h2></h2>
-              <a th:href="@{/comprador/tienda/{id} (id=${infos[0].producto.usuario.id})}" class="btn btn-info">Seguir Comprando</a>
+              <a th:href="@{/comprador/{idcomprador}/tienda/{id} (idcomprador=${idcomprador}, id=${infos[0].producto.usuario.id})}" class="btn btn-info">Seguir Comprando</a>
               <h2></h2>
-              <a th:href="@{/comprador/pedido}" class="btn btn-info">Siguiente</a>
+              <a th:href="@{/comprador/{idcomprador}/pedido (idcomprador=${idcomprador})}" class="btn btn-info">Siguiente</a>
               
             </ul>
           </div>
