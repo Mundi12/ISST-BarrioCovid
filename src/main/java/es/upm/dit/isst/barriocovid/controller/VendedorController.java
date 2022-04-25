@@ -93,29 +93,37 @@ public class VendedorController {
         model.addAttribute("comprador", comprador);
 
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
-        Pedido pedido = pedidos.get(0);
-        model.addAttribute("pedido", pedido);
+        List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
+        
+        if (infoProductos.isEmpty()==false){
+            if (pedidos.get(0).getEstado() != 4){
+                Pedido pedido = pedidos.get(0);
+                model.addAttribute("pedido", pedido);
 
-        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
-        model.addAttribute("infos", infoProductoRepository.findAll());
-    
-    
-
-        return "vendedor/pedidos";
+                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+                model.addAttribute("infos", infoProductoRepository.findAll());
+                return "vendedor/pedidos";
+            }
+        } 
+        return "redirect:/misproductos";
     }
    
     @GetMapping("/misproductos/pedidos/borrado") 
     public String borrarpedido(Model model){
-        pedidoRepository.deleteAll();
+        infoProductoRepository.deleteAll();
         return "redirect:/misproductos";
     }
 
+
     @GetMapping("/misproductos/pedidos/confirmado") 
     public String confirmarpedido(Model model){
+        
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
+        
         pedido.setEstado(4);
         pedidoRepository.save(pedido);
+
         return "redirect:/misproductos";
     }
     

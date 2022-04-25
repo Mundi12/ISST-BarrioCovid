@@ -26,7 +26,7 @@ public class Pedido {
         super();
         this.id = id;
         this.importe = importe;
-        this.estado = estado;
+        this.estado = 0;
     }
 
     public Integer getId(){

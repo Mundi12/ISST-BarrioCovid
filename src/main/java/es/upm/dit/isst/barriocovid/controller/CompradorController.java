@@ -24,11 +24,10 @@ public class CompradorController {
     private final PedidoRepository pedidoRepository;
 
     private final Logger logger = LoggerFactory.getLogger(VendedorController.class);
-    
-
-    
+        
     Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
-    Pedido pedido = new Pedido(1,0,0);
+    //Pedido pedido = new Pedido(1,0,0);
+    Pedido pedido = new Pedido();
 
     public CompradorController(ProductoRepository p, UsuarioRepository u, InfoProductoRepository i, PedidoRepository pe) {
 
@@ -82,6 +81,7 @@ public class CompradorController {
         Usuario usuario = usuarioRepository.findById(id).get();
         Pedido patata = new Pedido(1,0,0);
         logger.info("Pedido patata: {}", patata);
+        pedido.setId(1);
         pedido.setUsuario(comprador);
         logger.info("Pedido1: {}", pedido);
         pedidoRepository.save(pedido);
@@ -91,7 +91,6 @@ public class CompradorController {
         model.addAttribute("idcomprador", comprador.getId());
         return "comprador/productos_tiendas";
     }
-
 
     @PostMapping("/carrito") 
     public String añadirAlCarrito(@RequestParam Integer id, @RequestParam Integer cantidad, Model model){
@@ -143,12 +142,9 @@ public class CompradorController {
         return "comprador/carrito";
     }
 
-
-
     @GetMapping ("/borrarCarrito/{id}")
     public String quitarDelCarrito(@PathVariable Integer id, Model model ){
         Producto producto = productoRepository.findById(id).get();
-        
         boolean dentro= false;
 
         for(InfoProducto p: infoProductoRepository.findAll()){
@@ -161,9 +157,7 @@ public class CompradorController {
            Integer i = infoProductoRepository.findByProducto(producto).get().getId();
            infoProductoRepository.deleteById(i);
         }
-              
-        
-       
+                     
         double total = 0;
 
         for(InfoProducto p: infoProductoRepository.findAll() ){
@@ -182,8 +176,6 @@ public class CompradorController {
         
         return "/comprador/carrito";
     }
-
-
 
     @GetMapping("/comprador/{idcomprador}/pedido") 
     public String verPedido(Model model){
@@ -208,22 +200,28 @@ public class CompradorController {
         Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
         pedido.setUsuario(comprador);
 
+        logger.info("Pedido6c: {}", pedido);
+        logger.info("Estadoc: {}", pedido.getEstado());
+        logger.info("Este es el objeto infoproductoc {}",infoProductoRepository.findAll());
+
         for(InfoProducto info: infoProductoRepository.findAll()){
             info.setPedido(pedido);
             infoProductoRepository.save(info);
         }
         pedido.setEstado(2);
         pedidoRepository.save(pedido);
+
         logger.info("Pedido6: {}", pedido);
         logger.info("Estado: {}", pedido.getEstado());
         logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+        
         model.addAttribute("idcomprador", comprador.getId());
         return "comprador/pago";
     }
 
     @GetMapping("/comprador/{idcomprador}/finalPedido/cancelar") 
     public String pagocancelado(){
-        //pedidoRepository.deleteAll();
+        infoProductoRepository.deleteAll();
         return "redirect:/comprador/" + comprador.getId();
     }
 
@@ -232,15 +230,12 @@ public class CompradorController {
         pedido.setEstado(3);
         pedidoRepository.save(pedido);
         Integer estado = pedido.getEstado();
-        logger.info("Pedido7: {}", pedido);
+        logger.info("Pedido7: {}", (Pedido) pedido);
         logger.info("Estado: {}", pedido.getEstado());
         logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
         model.addAttribute("estado",estado);
         model.addAttribute("idcomprador", comprador.getId());
         return "comprador/seguimiento";
     }
-    
-
-
 
 }
