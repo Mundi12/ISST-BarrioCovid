@@ -20,26 +20,40 @@
     
     <div class="row text-center">
         <div class="card-body">
+            <div  th:if="${estado == 0}">
+                <p class="card-text">Ha seleccionado su tienda</p>
+            </div>
+
+            <div  th:if="${estado == 1}">
+                <p class="card-text">Ha seleccionado sus productos</p>
+            </div>
+
+            <div  th:if="${estado == 2}">
+                <p class="card-text">Ha confirmado su compra</p>
+            </div>
+
             <div  th:if="${estado == 3}">
-            <p class="card-text">Su pedido está esperando a ser confirmado por el vendedor</p>
+                <p class="card-text">Se ha realizado el pago. Su pedido está esperando a ser confirmado por el vendedor</p>
             </div>
+
             <div  th:if="${estado == 4}">
-            <p class="card-text" >Su pedido ha sido confirmado por el vendedor</p>
-
+                <p class="card-text" >Su pedido ha sido confirmado por el vendedor</p>
             </div>
+            
             <div  th:if="${estado == 5}">
-            <p class="card-text">Un voluntario ha aceptado su pedido</p>
-        
+                <p class="card-text">Un voluntario ha aceptado su pedido</p>
             </div>
+            
             <div  th:if="${estado == 6}">
-            <p class="card-text">El pedido se encuentra listo en tienda</p>
+                <p class="card-text">El pedido se encuentra listo en tienda</p>
             </div>
-            <div  th:if="${estado == 7}">
-            <p class="card-text">El pedido se ha recogido de la tienda</p>
 
+            <div  th:if="${estado == 7}">
+                <p class="card-text">El pedido se ha recogido de la tienda</p>
             </div>
+
             <div  th:if="${estado == 8}">
-            <p class="card-text">Pedido entregado</p>
+                <p class="card-text">Pedido entregado</p>
             </div>
 
         </div>

@@ -120,8 +120,10 @@ public class VendedorController {
         
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-        
+
+        logger.info("Estado problematico: {}", pedido.getEstado());
         pedido.setEstado(4);
+        logger.info("Estado problematico2: {}", pedido.getEstado());
         pedidoRepository.save(pedido);
 
         return "redirect:/misproductos";
