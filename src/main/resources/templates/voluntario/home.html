@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+
+ 
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+   
+   <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<div th:include="vendedor/header.html::header"></div>
+
+
+<div class="container">
+  <div class="row">
+    <h1 class="mt-4 mb-3">
+      Mis pedidos
+    </h1>
+    
+    
+    
+</div>
+
+
+
+  <h2></h2>
+  <div class="container">
+  
+  <table class="table">
+    <thead>
+      <tr >
+        <th scope="col">Nombre establecimiento</th>
+        <th scope="col">Dirección establecimiento</th>
+        <th scope="col">Dirección comprador</th>
+        <th scope="col">Ver pedido</th>
+        <th scope="col">Denegar pedido </th>
+      </tr>
+    </thead>
+    <tbody>       
+      <tr>
+        <td th:text="${vendedor.nombre}" ></td>
+        <td th:text="${vendedor.direccion}"></td>
+        <td th:text="${comprador.direccion}"></td>
+        <td><a  class="btn btn-info" th:href="@{/voluntario/{idvoluntario}/verPedido (idvoluntario=${voluntario})}">Ver pedido</a> </td>
+        <td><a  class="btn btn-danger" th:href="@{/voluntario/{idvoluntario}/pedidoDenegado (idvoluntario=${voluntario})}">X</a> </td>
+      </tr>       
+    </tbody>
+  </table>
+
+</div>
+
+
+
+
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>
