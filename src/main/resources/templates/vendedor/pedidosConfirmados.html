@@ -19,28 +19,23 @@
 <body>
 
 
- <div th:include="voluntario/header.html::header"></div>
+ <div th:include="comprador/header.html::header"></div>
    
     <div class="container">
-    
+
+      
       <div class="card mb-4">
         <div class="card-body">
           <div class="row">
            <div class="col-lg-9">
              <div class="card-body">
-              <h5 class="card-title">
-                Datos Establecimiento
-              </h5>
-              <h6 th:text=" 'Tienda: ' + ${vendedor.nombre}">Nombre: </h6>
-              <h6 th:text=" 'Correo: ' + ${vendedor.email}">Correo: </h6>
-              <h6 th:text=" 'Direccion: ' + ${vendedor.direccion}">Dirección:</h6>
-              <h2></h2>
-              <h5 class="card-title">
+
                 Datos Comprador
               </h5>
               <h6 th:text=" 'Nombre: ' + ${comprador.nombre}">Nombre: </h6>
               <h6 th:text=" 'Correo: ' + ${comprador.email}">Correo: </h6>
-              <h6 th:text=" 'Direccion: ' + ${comprador.direccion}">Dirección:</h6>
+              <h6 th:text=" 'Direccion: ' + ${comprador.direccion}">Dirección</h6>
+
               <h2></h2>
               <h5 class="card-title">
                 Productos
@@ -50,25 +45,31 @@
                   <thead>
                     <tr>
                       <th scope="col">Producto</th>
+                      <th scope="col">Precio</th>
                       <th scope="col">Cantidad</th>
+                      <th scope="col">Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each ="infoproducto:${infos}">
-                     
                      <td th:text="${infoproducto.nombre}" ></td>
+                     <td th:text="${infoproducto.precio}"></td>
                      <td th:text="${infoproducto.cantidad}"></td>
+                     <td th:text="${infoproducto.total}"></td> 
 
                    </tr>
                  </tbody>
                </table>
              </div>
              </div>
-             
+             <div class="row">
+       
+              <h5 th:text=" 'Importe: ' + ${pedido.importe}"></h5>
+              <h2></h2>
+            </div>
             <div class="row">
-              <a th:href="@{/voluntario/{idvoluntario}/pedidoAceptado (idvoluntario=${voluntario})}" class="btn btn-info">Confirmar pedido</a>
-              <a th:href="@{/voluntario/{idvoluntario}/pedidoDenegado (idvoluntario=${voluntario})}" class="btn btn-info">Denegar pedido</a>
-              
+              <a th:href="@{/misproductos/pedidosConfirmados/listo}" class="btn btn-info">Pedido preparado</a>
+              <a th:href="@{/misproductos}" class="btn btn-info">Volver atrás</a>
             </div>
 
            </div>

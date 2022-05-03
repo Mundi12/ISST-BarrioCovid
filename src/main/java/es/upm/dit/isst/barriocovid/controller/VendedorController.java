@@ -129,5 +129,73 @@ public class VendedorController {
         return "redirect:/misproductos";
     }
     
+    @GetMapping("/misproductos/pedidosConfirmados") 
+    public String verpedidosconfirmados(Model model){
+        Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
+        model.addAttribute("comprador", comprador);
+
+        List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
+        
+        if (infoProductos.isEmpty()==false){
+            if (pedidos.get(0).getEstado() != 6){
+                Pedido pedido = pedidos.get(0);
+                model.addAttribute("pedido", pedido);
+
+                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+                model.addAttribute("infos", infoProductoRepository.findAll());
+                return "vendedor/pedidosConfirmados";
+            }
+        } 
+        return "redirect:/misproductos";
+    }
     
+    @GetMapping("/misproductos/pedidosConfirmados/listo") 
+    public String verpedidosconfirmadoslisto(Model model){
+        
+        List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        Pedido pedido = pedidos.get(0);
+
+        logger.info("Estado problematico: {}", pedido.getEstado());
+        pedido.setEstado(6);
+        logger.info("Estado problematico2: {}", pedido.getEstado());
+        pedidoRepository.save(pedido);
+
+        return "redirect:/misproductos";
+    }
+
+    @GetMapping("/misproductos/pedidosRecogidos") 
+    public String verpedidosrecogidos(Model model){
+        Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
+        model.addAttribute("comprador", comprador);
+
+        List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
+        
+        if (infoProductos.isEmpty()==false){
+            if (pedidos.get(0).getEstado() != 7){
+                Pedido pedido = pedidos.get(0);
+                model.addAttribute("pedido", pedido);
+
+                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+                model.addAttribute("infos", infoProductoRepository.findAll());
+                return "vendedor/pedidosConfirmados";
+            }
+        } 
+        return "redirect:/misproductos";
+    }
+    
+    @GetMapping("/misproductos/pedidosRecogido/listo") 
+    public String verpedidosrecogidoslisto(Model model){
+        
+        List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        Pedido pedido = pedidos.get(0);
+
+        logger.info("Estado problematico: {}", pedido.getEstado());
+        pedido.setEstado(7);
+        logger.info("Estado problematico2: {}", pedido.getEstado());
+        pedidoRepository.save(pedido);
+
+        return "redirect:/misproductos";
+    }
 }

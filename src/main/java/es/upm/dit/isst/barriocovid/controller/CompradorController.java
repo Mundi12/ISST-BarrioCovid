@@ -57,6 +57,18 @@ public class CompradorController {
        // logger.info("usuario{}",usuario);
         return "redirect:/comprador/" + comprador.getId();  
     }
+
+    @PostMapping("/correoEnviado") 
+    public String correoEnviado(Model model){
+        return "correoEnviado";
+    }
+
+    @GetMapping("/contacto") 
+    public String contacto(Model model){
+        return "contacto";
+    }
+
+
     @GetMapping("/comprador/{idcomprador}") 
     public String homeComprador(Model model, @PathVariable Integer idcomprador){
 
