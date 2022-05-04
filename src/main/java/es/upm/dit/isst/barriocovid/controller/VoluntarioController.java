@@ -39,27 +39,37 @@ public class VoluntarioController {
     }
 
     @GetMapping("/voluntario/{idvoluntario}") 
-    public String homeVoluntario(Model model, @PathVariable Integer idvoluntario){
+    public String homeVoluntario(Model model, @PathVariable Integer idvoluntario){        
+        model.addAttribute("voluntario", voluntario.getId());
+        return "voluntario/home";
+    }
+
+    @GetMapping("/voluntario/{idvoluntario}/pedidos") 
+    public String verpedidos(Model model, @PathVariable Integer idvoluntario){
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-
+        model.addAttribute("voluntario", voluntario.getId());
         if(!denegado && pedido.getEstado() == 4) {
         model.addAttribute("vendedor", usuarioRepository.findById(2).get());
         model.addAttribute("comprador", usuarioRepository.findById(5).get());
-        model.addAttribute("voluntario", voluntario.getId());
-        return "voluntario/home";}
+        return "voluntario/pedidos";
+        }
+        
         return "voluntario/nopedido";
+        
     }
+
+
+
 
     @GetMapping("/voluntario/{idvoluntario}/verPedido") 
     public String verPedidoVol(Model model, @PathVariable Integer idvoluntario){
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-
+        model.addAttribute("voluntario", voluntario.getId());
         if(!denegado && pedido.getEstado() == 4) {
         model.addAttribute("vendedor", usuarioRepository.findById(2).get());
         model.addAttribute("comprador", usuarioRepository.findById(5).get());
-        model.addAttribute("voluntario", voluntario.getId());
         model.addAttribute("infos", infoProductoRepository.findAll());
         logger.info("Estado voluntario aceptado1: {}", pedido.getEstado());
         return "voluntario/verpedido";
@@ -88,5 +98,21 @@ public class VoluntarioController {
     }
 
     
+    @GetMapping("/voluntario/{idvoluntario}/pedidosconfirmados") 
+    public String verpedidosconfirmados(Model model, @PathVariable Integer idvoluntario){
+        List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        Pedido pedido = pedidos.get(0);
+        model.addAttribute("voluntario", voluntario.getId());
+        if(!denegado && pedido.getEstado() == 5) {
+        model.addAttribute("vendedor", usuarioRepository.findById(2).get());
+        model.addAttribute("comprador", usuarioRepository.findById(5).get());
+        model.addAttribute("infos", infoProductoRepository.findAll());
+        return "voluntario/veraceptados";
+        }
+        return "voluntario/nopedido";
+        
+    }
+
+
 
 }

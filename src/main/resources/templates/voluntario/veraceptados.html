@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+ <div th:include="voluntario/header.html::header"></div>
+   
+    <div class="container">
+    
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row">
+           <div class="col-lg-9">
+             <div class="card-body">
+              <h5 class="card-title">
+                Datos Establecimiento
+              </h5>
+              <h6 th:text=" 'Tienda: ' + ${vendedor.nombre}">Nombre: </h6>
+              <h6 th:text=" 'Correo: ' + ${vendedor.email}">Correo: </h6>
+              <h6 th:text=" 'Direccion: ' + ${vendedor.direccion}">Dirección:</h6>
+              <h2></h2>
+              <h5 class="card-title">
+                Datos Comprador
+              </h5>
+              <h6 th:text=" 'Nombre: ' + ${comprador.nombre}">Nombre: </h6>
+              <h6 th:text=" 'Correo: ' + ${comprador.email}">Correo: </h6>
+              <h6 th:text=" 'Direccion: ' + ${comprador.direccion}">Dirección:</h6>
+              <h2></h2>
+              <h5 class="card-title">
+                Productos
+              </h5>
+              <div class="alert alert-light" role="alert">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Producto</th>
+                      <th scope="col">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each ="infoproducto:${infos}">
+                     
+                     <td th:text="${infoproducto.nombre}" ></td>
+                     <td th:text="${infoproducto.cantidad}"></td>
+
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
+             </div>
+             
+            <div class="row">
+              <a th:href="@{/voluntario/{idvoluntario} (idvoluntario=${voluntario})}" class="btn btn-info">Volver atrás</a>
+              
+            </div>
+
+           </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  
+ <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+ <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>

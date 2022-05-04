@@ -138,10 +138,11 @@ public class VendedorController {
         List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
         
         if (infoProductos.isEmpty()==false){
-            if (pedidos.get(0).getEstado() != 6){
+            if (pedidos.get(0).getEstado() == 6){
+
                 Pedido pedido = pedidos.get(0);
                 model.addAttribute("pedido", pedido);
-
+    
                 logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
                 model.addAttribute("infos", infoProductoRepository.findAll());
                 return "vendedor/pedidosConfirmados";
@@ -173,10 +174,11 @@ public class VendedorController {
         List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
         
         if (infoProductos.isEmpty()==false){
-            if (pedidos.get(0).getEstado() != 7){
+            if (pedidos.get(0).getEstado() == 7){
+
                 Pedido pedido = pedidos.get(0);
                 model.addAttribute("pedido", pedido);
-
+    
                 logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
                 model.addAttribute("infos", infoProductoRepository.findAll());
                 return "vendedor/pedidosConfirmados";
