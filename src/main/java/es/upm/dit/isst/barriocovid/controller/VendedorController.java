@@ -198,6 +198,7 @@ public class VendedorController {
         logger.info("Estado problematico2: {}", pedido.getEstado());
         pedidoRepository.save(pedido);
 
-        return "redirect:/misproductos";
+        return "redirect:/misproductos"; 
+        
     }
 }
