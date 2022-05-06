@@ -185,7 +185,7 @@ public class VendedorController {
             }
         } 
         return "redirect:/misproductos";
-    }
+    } 
     
     @GetMapping("/misproductos/pedidosRecogido/listo") 
     public String verpedidosrecogidoslisto(Model model){
