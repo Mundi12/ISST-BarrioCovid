@@ -63,6 +63,25 @@
                  </tbody>
                </table>
              </div>
+             <div th:if="${estado == 5}">
+              <h6>El pedido aún no se encuentra listo en tienda</h6>
+              </div>
+              
+              <div th:if="${estado == 6}">
+              <h6>El pedido ya se encuentra listo en tienda, ya puede ir a recogerlo</h6>
+              </div>
+              
+              
+              
+              <div th:if="${estado == 7}">
+              <h6>Ya ha recogido el pedido, a la espera de ser entregado</h6>
+              </div>
+              
+              
+              
+              <div th:if="${estado == 8}">
+              <h6>Ya ha entregado el pedido. Muchas gracias </h6>
+              </div>
              </div>
              
             <div class="row">

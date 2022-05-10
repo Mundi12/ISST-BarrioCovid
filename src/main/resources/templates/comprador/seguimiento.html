@@ -48,15 +48,30 @@
                 <p class="card-text">El pedido se encuentra listo en tienda</p>
             </div>
 
-            <div  th:if="${estado == 7}">
-                <p class="card-text">El pedido se ha recogido de la tienda</p>
+            <div th:if="${estado == 7}">
+            
+            <div class="aux"></div>
+            <div class="aux"></div>
+            <div class="aux"></div>
+            <p class="card-text">El pedido se ha recogido de la tienda</p>
+            <div class="aux"></div>
+            <a th:href="@{/comprador/{idcomprador}/estado8 (idcomprador=${idcomprador})}" class="btn btn-info">Pedido entregado</a>
+            
             </div>
+            
+            
 
             <div  th:if="${estado == 8}">
                 <p class="card-text">Pedido entregado</p>
             </div>
 
+            
+
         </div>
+    </div>
+    <div class="row">
+        <div class="aux"></div>
+        <a th:href="@{/comprador/{idcomprador} (idcomprador=${idcomprador})}" class="btn btn-info">Volver atrás</a>    
     </div>
 
 

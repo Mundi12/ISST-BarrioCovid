@@ -96,11 +96,9 @@ public class VendedorController {
         List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
         
         if (infoProductos.isEmpty()==false){
-            if (pedidos.get(0).getEstado() != 4){
+            if (pedidos.get(0).getEstado() == 3){
                 Pedido pedido = pedidos.get(0);
                 model.addAttribute("pedido", pedido);
-
-                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
                 model.addAttribute("infos", infoProductoRepository.findAll());
                 return "vendedor/pedidos";
             }
@@ -120,10 +118,7 @@ public class VendedorController {
         
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-
-        logger.info("Estado problematico: {}", pedido.getEstado());
         pedido.setEstado(4);
-        logger.info("Estado problematico2: {}", pedido.getEstado());
         pedidoRepository.save(pedido);
 
         return "redirect:/misproductos";
@@ -138,12 +133,10 @@ public class VendedorController {
         List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
         
         if (infoProductos.isEmpty()==false){
-            if (pedidos.get(0).getEstado() == 6){
+            if (pedidos.get(0).getEstado() == 5){
 
                 Pedido pedido = pedidos.get(0);
                 model.addAttribute("pedido", pedido);
-    
-                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
                 model.addAttribute("infos", infoProductoRepository.findAll());
                 return "vendedor/pedidosConfirmados";
             }
@@ -156,10 +149,7 @@ public class VendedorController {
         
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-
-        logger.info("Estado problematico: {}", pedido.getEstado());
         pedido.setEstado(6);
-        logger.info("Estado problematico2: {}", pedido.getEstado());
         pedidoRepository.save(pedido);
 
         return "redirect:/misproductos";
@@ -174,14 +164,12 @@ public class VendedorController {
         List <InfoProducto> infoProductos = (List<InfoProducto>) infoProductoRepository.findAll();
         
         if (infoProductos.isEmpty()==false){
-            if (pedidos.get(0).getEstado() == 7){
+            if (pedidos.get(0).getEstado() == 6){
 
                 Pedido pedido = pedidos.get(0);
                 model.addAttribute("pedido", pedido);
-    
-                logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
                 model.addAttribute("infos", infoProductoRepository.findAll());
-                return "vendedor/pedidosConfirmados";
+                return "vendedor/pedidosRecogido";
             }
         } 
         return "redirect:/misproductos";
@@ -192,13 +180,22 @@ public class VendedorController {
         
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
-
-        logger.info("Estado problematico: {}", pedido.getEstado());
         pedido.setEstado(7);
-        logger.info("Estado problematico2: {}", pedido.getEstado());
         pedidoRepository.save(pedido);
 
         return "redirect:/misproductos"; 
         
+    }
+
+    @PostMapping("/correoEnviado/vendedor")
+    public String correoEnviadoven(Model model){
+    return "vendedor/correoEnviado";
+    }
+
+
+
+    @GetMapping("/contacto/vendedor")
+    public String contactoven(Model model){
+    return "vendedor/contacto";
     }
 }

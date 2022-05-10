@@ -23,7 +23,6 @@ public class VoluntarioController {
     private final InfoProductoRepository infoProductoRepository;
     private final PedidoRepository pedidoRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(VendedorController.class);
         
     Usuario voluntario = new Usuario(6,"Pepe Jiménez","voluntario1","pepe.jimenez@gmail.com","Calle Alcalá, 60, 1B","678455321","voluntario",false);
 
@@ -71,7 +70,6 @@ public class VoluntarioController {
         model.addAttribute("vendedor", usuarioRepository.findById(2).get());
         model.addAttribute("comprador", usuarioRepository.findById(5).get());
         model.addAttribute("infos", infoProductoRepository.findAll());
-        logger.info("Estado voluntario aceptado1: {}", pedido.getEstado());
         return "voluntario/verpedido";
         }
         return "redirect:/voluntario/" + idvoluntario;
@@ -85,7 +83,6 @@ public class VoluntarioController {
         pedido.setEstado(5);
         pedidoRepository.save(pedido);
         denegado=false;
-        logger.info("Estado voluntario aceptado2: {}", pedido.getEstado());
         return "redirect:/voluntario/" + idvoluntario;
 
     }
@@ -103,14 +100,27 @@ public class VoluntarioController {
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         Pedido pedido = pedidos.get(0);
         model.addAttribute("voluntario", voluntario.getId());
-        if(!denegado && pedido.getEstado() == 5) {
+        if(!denegado && pedido.getEstado() >= 5) {
         model.addAttribute("vendedor", usuarioRepository.findById(2).get());
         model.addAttribute("comprador", usuarioRepository.findById(5).get());
         model.addAttribute("infos", infoProductoRepository.findAll());
+        model.addAttribute("estado", pedido.getEstado());
         return "voluntario/veraceptados";
         }
         return "voluntario/nopedido";
         
+    }
+
+    @PostMapping("/correoEnviado/voluntario")
+    public String correoEnviadovol(Model model){
+    return "voluntario/correoEnviado";
+    }
+
+
+
+    @GetMapping("/contacto/voluntario")
+    public String contactovol(Model model){
+    return "voluntario/contacto";
     }
 
 

@@ -23,7 +23,7 @@ public class CompradorController {
     private final InfoProductoRepository infoProductoRepository;
     private final PedidoRepository pedidoRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(VendedorController.class);
+    private final Logger logger = LoggerFactory.getLogger(CompradorController.class);
         
     Usuario comprador = new Usuario(5, "Lucia Garcia","demo","lucia.garcia@gmail.com","Calle Alcalá,15, 3A","655432518","comprador",false);
     //Pedido pedido = new Pedido(1,0,0);
@@ -41,7 +41,7 @@ public class CompradorController {
     @GetMapping("/") 
     public String inicio(){
        
-        return "login";
+        return "redirect:/login"; 
     }
 
     @GetMapping("/perfil/prueba") 
@@ -52,30 +52,20 @@ public class CompradorController {
 
     @PostMapping("/perfil") 
     public String editarPerfil(Usuario usuario){  
-        
         usuarioRepository.save(usuario);
-       // logger.info("usuario{}",usuario);
         return "redirect:/comprador/" + comprador.getId();  
     }
 
-    @PostMapping("/correoEnviado") 
-    public String correoEnviado(Model model){
-        return "correoEnviado";
-    }
-
-    @GetMapping("/contacto") 
-    public String contacto(Model model){
-        return "contacto";
-    }
-
+    
 
     @GetMapping("/comprador/{idcomprador}") 
     public String homeComprador(Model model, @PathVariable Integer idcomprador){
 
-        model.addAttribute("vendedores", usuarioRepository.findByTipo("vendedor"));
+        model.addAttribute("vendedores", usuarioRepository.findByTipo("ROLE_VEND"));
         model.addAttribute("idcomprador", comprador.getId());
+        
 
-        logger.info("Estado problematico3: {}", pedido.getEstado());
+        
 
 
         return "comprador/home";
@@ -104,7 +94,7 @@ public class CompradorController {
             pedidoRepository.save(pedido);
         }
         logger.info("ID: {}", pedido.getId());
-        logger.info("Estado: {}", pedido.getEstado());
+        logger.info("Estado 1: {}", pedido.getEstado());
 
         model.addAttribute("estado", pedido.getEstado());
 
@@ -119,9 +109,6 @@ public class CompradorController {
         InfoProducto infoProducto = new InfoProducto();
         Producto producto = productoRepository.findById(id).get();
         double total = 0;
-        logger.info("Producto buscado: {}", productoRepository.findById(id).get());
-        logger.info("Cantidad: {}", cantidad);
-
         infoProducto.setCantidad(cantidad);
         infoProducto.setPrecio(producto.getPrecio());
         infoProducto.setNombre(producto.getNombre());
@@ -151,15 +138,13 @@ public class CompradorController {
             pedido.setImporte(total);
             pedidoRepository.save(pedido);
        
-        
-        logger.info("Pedido3: {}", pedido);
         Integer idVendedor = infoProducto.getProducto().getUsuario().getId();
         return "redirect:/comprador/" + comprador.getId() +"/tienda/"+ idVendedor;
     }
 
     @GetMapping("/verCarrito") 
     public String verCarrito(Model model){
-        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());
+        logger.info("Estos son los detalles de los productos {}",infoProductoRepository.findAll());
         model.addAttribute("infos", infoProductoRepository.findAll());
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         if (pedidos.isEmpty()){
@@ -199,9 +184,6 @@ public class CompradorController {
             pedido.setImporte(total);
             pedidoRepository.save(pedido);
         
-        
-        logger.info("Pedido4: {}", pedido);
-        logger.info("Este es el objeto infoproducto {}",infoProductoRepository.findAll());  
         model.addAttribute("infos", infoProductoRepository.findAll());
         model.addAttribute("vendedor",producto.getUsuario().getId());
         if (pedidos.isEmpty()){
@@ -283,6 +265,9 @@ public class CompradorController {
     public String vermipedido(Model model){
         Integer estado = pedido.getEstado();
         List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+        Pedido pedido = pedidos.get(0);
+        logger.info("Estado en el seguimiento: {}", pedido.getEstado());
+       
         if (pedidos.isEmpty()){
             model.addAttribute("estado",estado);
         } else {
@@ -290,6 +275,28 @@ public class CompradorController {
         }
         model.addAttribute("idcomprador", comprador.getId());
         return "comprador/seguimiento";
+    }
+
+    @GetMapping("/comprador/{idcomprador}/estado8")
+    public String estado8(Model model, @PathVariable Integer idcomprador){
+    List <Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
+    Pedido pedido = pedidos.get(0);
+    pedido.setEstado(8);
+    pedidoRepository.save(pedido);
+    return "redirect:/comprador/" + idcomprador;
+
+}
+
+    @PostMapping("/correoEnviado/comprador")
+    public String correoEnviadocom(Model model){
+    return "comprador/correoEnviado";
+    }
+
+
+
+    @GetMapping("/contacto/comprador")
+    public String contactocom(Model model){
+    return "comprador/contacto";
     }
 
 }

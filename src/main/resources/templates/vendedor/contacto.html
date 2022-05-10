@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Barrio Covid</title>
+
+
+
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<div th:include="vendedor/header.html::header"></div>
+    
+    <div class="container">
+
+      <h2>Contacto con el administrador</h2>
+      <form class="form-horizontal" th:action="@{/correoEnviado/vendedor}"  method="post"  enctype="multipart/form-data">
+
+        <div class="form-group">
+          <div class="col-sm-10">
+            <textarea name="comentarios" rows="10" cols="40" placeholder="Escribe aquí un mensaje al administrador"></textarea> 
+            <div id="aux"></div>  
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-info"> Mandar mensaje</button>
+          </div>             
+        </div>
+
+      </form>
+
+    </div>
+    
+
+ 
+
+
+ <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+ <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  </body>
+
+  </html>

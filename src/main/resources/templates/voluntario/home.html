@@ -22,7 +22,9 @@
  <div th:include="voluntario/header.html::header"></div>
             
             <div class="row">
+              <div class="aux"></div>
               <a th:href="@{/voluntario/{idvoluntario}/pedidos (idvoluntario=${voluntario})}" class="btn btn-info">Todos los pedidos</a>
+              <div class="aux"></div>
               <a th:href="@{/voluntario/{idvoluntario}/pedidosconfirmados (idvoluntario=${voluntario})}" class="btn btn-info">Pedidos confirmados</a>
               
             </div>

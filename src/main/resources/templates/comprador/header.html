@@ -24,7 +24,7 @@
 <div th:fragment="header">
   <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top ">
    
-      <a class="navbar-brand" th:href="@{/comprador}">Barrio Covid</a>
+      <a class="navbar-brand" th:href="@{/comprador/5}">Barrio Covid</a>
 
       
 
@@ -43,8 +43,8 @@
             aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" th:href="@{/perfil/prueba}">Mi perfil</a>
             <a class="dropdown-item" th:href="@{/comprador/5/verSeguimiento}">Mi pedido</a>
-            <a class="dropdown-item" th:href="@{/contacto}">Contacto</a> 
-            <a class="dropdown-item" th:href="@{/cerrarsesion}">Cerrar sesión</a> 
+            <a class="dropdown-item" th:href="@{/contacto/comprador}">Contacto</a> 
+            <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a> 
           </div></li>
         </span>
           </ul>
